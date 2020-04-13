@@ -14,26 +14,26 @@ ctx.strokeStyle = 'lightpink'
 ctx.fillRect(0, 0, width, height)
 
 // stitches()
-perspective()
-
-// utils --------------------------------------------------------------
-
-Number.prototype.map = function (in_min, in_max, out_min, out_max) {
-  return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
+arcs(
+  Math.random() * 360,
+  Math.random() * 630,
+  Math.random() * 9,
+  Math.random() * 70 + 12,
+  Math.random() * 20 + 1
+)
 
 // patterns --------------------------------------------------------------
 
-function stitches (fac = 6) {
+function stitches(fac = 6) {
   for (let x = 50; x <= width - 50; x += 20) {
     for (let y = 50; y <= height - 50; y += 20) {
-  
+
       ctx.beginPath();
       ctx.moveTo(x - fac, y - fac);
       ctx.lineTo(x + fac, y + fac);
       ctx.closePath();
       ctx.stroke();
-  
+
       ctx.beginPath();
       ctx.moveTo(x + fac, y - fac);
       ctx.lineTo(x - fac, y + fac);
@@ -54,7 +54,7 @@ function perspective() {
       ctx.stroke();
     }
   }
-} 
+}
 
 function circles() {
   for (let x = 50; x <= width - 50; x += 20) {
@@ -64,14 +64,17 @@ function circles() {
       ctx.stroke();
     }
   }
-} 
+}
 
-function arcs(count = 150, size = 7, offset = 2) {
-  for (let x = 50; x <= width - 50; x += 20) {
-    for (let y = 50; y <= height - 50; y += 20) {
-      let s = count.map(120, 0, 0, (Math.PI * 2) * offset);
+function arcs(count = 150, size = 7, offset = 2, num = 20, length = 1) {
+  Number.prototype.maping = function (in_min, in_max, out_min, out_max) {
+    return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  }
+  for (let x = 50; x <= width - 50; x += num) {
+    for (let y = 50; y <= height - 50; y += num) {
+      let s = count.maping(120, 0, 0, (Math.PI * 2) * offset);
       ctx.beginPath();
-      ctx.arc(x, y, size, s, Math.PI + s)
+      ctx.arc(x, y, size, s, Math.PI / length + s)
       ctx.stroke();
       count--;
     }
