@@ -24,14 +24,6 @@ function rng(val, offset) {
   return Math.random() * val + offset
 }
 
-// function createCanvas(el, w, h) {
-//   document.body.innerHTML += `<canvas id="${el}"></canvas>`;
-//   const c = document.getElementById(el).getContext('2d');
-//   c.canvas.width = w;
-//   c.canvas.height = h;
-//   return c
-// }
-
 function HexColor(size) {
   let hexcolor = "#";
   for (let j = 0; j < 6; j++) {
@@ -44,7 +36,6 @@ function HexColor(size) {
 }
 
 // randon pattern -----------------------------------------------
-
 function arcs(amnt, count, size, offset, num, length) {
   ctx.strokeStyle = HexColor()
   for (let x = amnt; x <= width - amnt; x += num) {
@@ -66,14 +57,14 @@ function arcs(amnt, count, size, offset, num, length) {
 
 // update --------------------------------------------------------
 function update() {
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 2; i++) {
     arcs(
-      rng(38, 0),  // amnt
-      360,  // count
-      130,  // size
-      9,    // offset
-      56,  // num
-      rng(52, 1),   // length
+      rng(8, 0),  // amnt
+      160,  // count
+      10,  // size
+      120,    // offset
+      rng(12, 1),  // num
+      rng(20, 1),   // length
     )
 
     // arcs(
@@ -89,11 +80,20 @@ function update() {
 }
 
 function animate(speed) {
-  setInterval(() => {
-    window.requestAnimationFrame(update);
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillRect(0, 0, width, height);
-  }, speed);
+  // setInterval(() => {
+  window.requestAnimationFrame(update);
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillRect(0, 0, width, height);
+  // }, speed);
 }
 
 animate(70)
+
+
+// function createCanvas(el, w, h) {
+//   document.body.innerHTML += `<canvas id="${el}"></canvas>`;
+//   const c = document.getElementById(el).getContext('2d');
+//   c.canvas.width = w;
+//   c.canvas.height = h;
+//   return c
+// }
