@@ -24,7 +24,7 @@ function rng(val, offset) {
   return Math.random() * val + offset
 }
 
-function HexColor(size) {
+function HexColor() {
   let hexcolor = "#";
   for (let j = 0; j < 6; j++) {
     const rng16 = Math.floor(Math.random() * 16);
