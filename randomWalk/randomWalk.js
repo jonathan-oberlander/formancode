@@ -10,7 +10,20 @@ const thick = 9;
 ctx.fillStyle = 'white';
 
 ctx.translate(w / 2, h / 2);
-ctx.scale(3, 3);
+ctx.scale(2, 2);
+
+// ---------------------------------------------------------
+function grayShade(posX) {
+  const rng = posX + 1 * 200 + (Math.random() * 55);
+  return `rgb(${rng}, ${rng}, ${rng})`
+}
+
+// ---------------------------------------------------------
+let mouse = { x: 0, y: 0, }
+canvas.addEventListener('mousemove', function (evt) {
+  mouse.x = (evt.layerX / w) * 2 - 1
+  mouse.y = (evt.layerY / h) * 2 - 1
+})
 
 // ---------------------------------------------------------
 class Walker {
@@ -25,7 +38,9 @@ class Walker {
   }
 
   draw() {
-    ctx.clearRect(-w / 2, -h / 2, w, h);
+    // ctx.clearRect(-w / 2, -h / 2, w, h);
+
+    ctx.fillStyle = grayShade(mouse.x);
     ctx.beginPath();
     ctx.fillRect(this.x, this.y, this.size, this.size);
     ctx.stroke();
@@ -34,17 +49,28 @@ class Walker {
   update() {
     let stepX = Math.random() * 2 - 1;
     let stepY = Math.random() * 2 - 1;
-    // let rngSize = Math.random() * 5;
+
+    let r = Math.random();
+    if (r < mouse.x) {
+      this.x++;
+    }
+    if (r < -mouse.x) {
+      this.x--;
+    }
+    if (r < mouse.y) {
+      this.y++;
+    }
+    if (r < -mouse.y) {
+      this.y--;
+    }
 
     this.x += stepX;
     this.y += stepY;
-    // this.size = rngSize;
 
     this.draw();
   }
 
 }
-
 
 // throttle animationframe -----------------------------------------
 let stop = false;
@@ -58,7 +84,7 @@ function animate() {
   elapsed = now - then;
   if (elapsed > fpsInterval) {
     then = now - (elapsed % fpsInterval);
-    walker.update();
+    walker.update()
   }
 }
 
@@ -71,5 +97,5 @@ function startAnimating(fps) {
 }
 
 // start the animation ----------------------------------------------
-const walker = new Walker(5);
+const walker = new Walker(2);
 startAnimating(10);
