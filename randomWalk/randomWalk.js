@@ -97,5 +97,5 @@ function startAnimating(fps) {
 }
 
 // start the animation ----------------------------------------------
-const walker = new Walker(2);
-startAnimating(10);
+const walker = new Walker(1);
+startAnimating(40);
